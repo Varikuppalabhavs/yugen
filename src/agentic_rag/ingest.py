@@ -99,7 +99,73 @@ def split_documents(
     )
     return splitter.split_documents(non_empty_documents)
 
+def iter_document_chunks(
+    directory: str | Path,
+    chunk_size: int = 1000,
+    chunk_overlap: int = 150,
+):
+    """Yield document chunks incrementally to reduce memory usage."""
 
+    if chunk_size <= 0:
+        raise ValueError("chunk_size must be greater than zero")
+    if chunk_overlap < 0 or chunk_overlap >= chunk_size:
+        raise ValueError(
+            "chunk_overlap must be non-negative and smaller than chunk_size"
+        )
+
+    documents_dir = Path(directory)
+
+    if not documents_dir.is_dir():
+        logger.warning("Documents directory does not exist: %s", documents_dir)
+        return
+
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+    )
+
+    for path in sorted(documents_dir.rglob("*")):
+        if not path.is_file() or path.suffix.casefold() not in SUPPORTED_SUFFIXES:
+            continue
+
+        if path.suffix.casefold() == ".pdf":
+            try:
+                with path.open("rb") as file:
+                    reader = PdfReader(file)
+
+                    for page_number, page in enumerate(reader.pages):
+                        content = page.extract_text() or ""
+
+                        if content.strip():
+                            document = Document(
+                                page_content=content,
+                                metadata={
+                                    "source": str(path),
+                                    "page": page_number,
+                                },
+                            )
+
+                            yield from splitter.split_documents([document])
+
+            except (OSError, ValueError, PdfReadError):
+                logger.warning("Could not load PDF: %s", path, exc_info=True)
+
+            continue
+
+        try:
+            content = path.read_text(encoding="utf-8")
+
+            if content.strip():
+                document = Document(
+                    page_content=content,
+                    metadata={"source": str(path)},
+                )
+
+                yield from splitter.split_documents([document])
+
+        except (OSError, UnicodeError):
+            logger.warning("Could not load text document: %s", path, exc_info=True)
+            
 def ingest_documents(
     directory: str | Path = DEFAULT_DOCUMENTS_DIR,
     chunk_size: int = 1000,

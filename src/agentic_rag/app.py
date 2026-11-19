@@ -22,7 +22,7 @@ from streamlit_cookies_controller import CookieController
 
 from src.agentic_rag.generation import get_llm
 from src.agentic_rag.graph import agent
-from src.agentic_rag.ingest import load_documents, split_documents
+from src.agentic_rag.ingest import iter_document_chunks
 from src.agentic_rag.retrieval import index_documents, delete_document
 from src.agentic_rag.memory import (
     add_message,
@@ -72,7 +72,7 @@ inject_theme()
 
 controller = CookieController(key="agentic_rag_cookies")
 browser_cookies = controller.getAll()
-print("YUGEN COOKIE VALUE:", repr(browser_cookies))
+
 
 if "cookie_initialized" not in st.session_state:
     time.sleep(1)
@@ -214,12 +214,29 @@ def process_uploaded_files(uploaded_files) -> None:
             try:
                 upload_dir.mkdir(parents=True, exist_ok=True)
                 target_path.write_bytes(file_bytes)
-                documents = load_documents(upload_dir)
-                chunks = split_documents(documents)
-                if not chunks:
+                chunk_batch = []
+                indexed_count = 0
+
+                for chunk in iter_document_chunks(upload_dir):
+                    chunk_batch.append(chunk)
+
+                    if len(chunk_batch) == 10:
+                        indexed_count += index_documents(
+                            chunk_batch,
+                            session_id=SESSION_ID,
+                        )
+                        chunk_batch.clear()
+
+                if chunk_batch:
+                    indexed_count += index_documents(
+                        chunk_batch,
+                        session_id=SESSION_ID,
+                    )
+
+                if indexed_count == 0:
                     st.warning(f"No readable text found in {original_name}.")
                     continue
-                indexed_count = index_documents(chunks, session_id=SESSION_ID)
+
                 total_chunks += indexed_count
                 success_marker.write_text("success", encoding="utf-8")
                 st.success(f"{original_name} · {indexed_count} chunks indexed")

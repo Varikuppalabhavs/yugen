@@ -8,7 +8,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 from .retrieval import search_documents
-
+from functools import lru_cache
 
 MODEL_NAME = "gemini-3.1-flash-lite"
 
@@ -37,8 +37,9 @@ Document context:
 ])
 
 
+@lru_cache(maxsize=1)
 def get_llm():
-    """Initialize the Gemini chat model."""
+    """Initialize and reuse the Gemini chat model."""
 
     return ChatGoogleGenerativeAI(
         model=MODEL_NAME,

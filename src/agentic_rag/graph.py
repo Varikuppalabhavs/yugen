@@ -245,15 +245,7 @@ def retrieve_node(state: AgentState) -> dict:
         session_id=state["session_id"],
     )
 
-    print("\n========== YUGEN RETRIEVAL DEBUG ==========")
-    print("Question:", state["question"])
-    print("Retrieved chunks:", len(documents))
-
-    for doc in documents:
-        print("SOURCE:", doc.metadata.get("source"))
-        print("CONTENT PREVIEW:", doc.page_content[:300])
-
-    print("===========================================\n")
+    
 
     return {"documents": documents}
 
