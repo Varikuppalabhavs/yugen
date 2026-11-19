@@ -1,7 +1,13 @@
 """Yugen — editorial interface for the persistent Agentic RAG assistant."""
-
 import sys
-import uuid_shim  # Must load before LangChain imports.
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+import uuid_shim
 
 import base64
 import hashlib
