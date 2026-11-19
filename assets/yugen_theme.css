@@ -1,0 +1,424 @@
+/* Yugen — refined editorial workspace */
+:root {
+  --ink: #292A30;
+  --paper: #EEECE8;
+  --paper-soft: #F5F3EF;
+  --silver: #C9CBD2;
+  --muted: #625F5B;
+  --red: #963F43;
+  --line: rgba(41,42,48,.18);
+}
+html, body {
+  background: var(--paper) !important;
+}
+
+[data-testid="stAppViewContainer"] {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(238,236,232,.97) 0%,
+      rgba(238,236,232,.91) 36%,
+      rgba(238,236,232,.58) 66%,
+      rgba(238,236,232,.40) 100%
+    ),
+    url('data:image/png;base64,__HERO_IMAGE__') center right / cover no-repeat fixed !important;
+}
+
+.stApp {
+  color: var(--ink);
+  background: transparent !important;
+}
+[data-testid="stHeader"] { background: rgba(238,236,232,.35) !important; }
+[data-testid="stToolbar"] { right: 1rem; }
+[data-testid="stSidebar"] {
+  background: rgba(244,242,238,.96) !important;
+  border-right: 1px solid var(--line);
+  min-width: 270px;
+}
+[data-testid="stSidebar"] > div:first-child { padding: 1.2rem 1.15rem 1.4rem; }
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] { gap: .55rem; }
+.block-container {
+  max-width: 1440px;
+  padding: 1.1rem 3rem 7rem;
+}
+h1, h2, h3, p, label, [data-testid="stMarkdownContainer"] { color: var(--ink); }
+h1 { letter-spacing: -.045em; }
+.yugen-brand {
+  display: flex; align-items: center; gap: 13px;
+  padding: 2px 0 18px; border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+}
+.yugen-brand img {
+  width: 46px; height: 46px; object-fit: contain;
+  image-rendering: pixelated; flex: 0 0 46px;
+}
+.yugen-brand .word {
+  font: italic 36px/1 Georgia, "Times New Roman", serif;
+  letter-spacing: -1.8px; color: var(--ink);
+}
+.yugen-brand .sub {
+  font: 9px/1.7 Arial, sans-serif; letter-spacing: 2.5px;
+  color: #625F5B; margin-top: 5px;
+}
+.yugen-nav-label {
+  font: 10px Arial, sans-serif; letter-spacing: 2.8px;
+  color: #625F5B; margin: 4px 0 3px;
+}
+.yugen-muted { color: #625F5B; font-size: 12px; line-height: 1.65; }
+[data-testid="stSidebar"] hr { margin: .8rem 0; border-color: var(--line); }
+.stButton > button {
+  border: 1px solid rgba(41,42,48,.28);
+  background: rgba(255,255,255,.42);
+  color: var(--ink); border-radius: 5px; min-height: 40px;
+  transition: all .18s ease;
+}
+.stButton > button:hover {
+  border-color: var(--red); color: var(--red);
+  background: rgba(150,63,67,.07);
+}
+.stButton > button:focus { box-shadow: 0 0 0 .12rem rgba(150,63,67,.18); border-color: var(--red); }
+.st-key-nav_workspace button, .st-key-nav_knowledge button, .st-key-nav_history button {
+  border: 0; border-bottom: 2px solid transparent;
+  border-radius: 0; background: transparent; color: #45434A;
+  font: 11px Arial, sans-serif; letter-spacing: 2px;
+  min-height: 48px; padding: .5rem .4rem; white-space: nowrap;
+}
+.st-key-nav_workspace button:hover, .st-key-nav_knowledge button:hover, .st-key-nav_history button:hover {
+  background: transparent; color: var(--red);
+}
+.st-key-process_documents button {
+  background: var(--red); color: white; border-color: var(--red);
+}
+.st-key-process_documents button:hover { background: #7E3438; color: white; }
+.stTextInput input, .stTextArea textarea {
+  background: rgba(255,255,255,.78); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 5px;
+}
+[data-testid="stFileUploader"] section {
+  background: rgba(255,255,255,.58);
+  border: 1px dashed rgba(41,42,48,.35); border-radius: 7px;
+}
+[data-testid="stChatInput"] {
+  background: rgba(248,247,244,.96) !important;
+  border: 1px solid rgba(41,42,48,.24) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 34px rgba(35,33,30,.14);
+  backdrop-filter: blur(14px);
+}
+[data-testid="stChatInput"] textarea {
+  color: var(--ink) !important; background: transparent !important;
+}
+[data-testid="stChatMessage"] {
+  background: rgba(248,247,244,.82);
+  border: 1px solid rgba(41,42,48,.12);
+  border-radius: 10px; padding: 1rem 1.15rem;
+  backdrop-filter: blur(12px);
+}
+[data-testid="stChatMessage"] p,
+[data-testid="stChatMessage"] li { color: #292A30 !important; }
+.yugen-hero {
+  position: relative; min-height: 470px; overflow: hidden;
+  border: 1px solid rgba(41,42,48,.12); border-radius: 8px;
+  background: linear-gradient(90deg, rgba(248,247,244,.84), rgba(248,247,244,.30));
+  backdrop-filter: blur(2px);
+  display: flex; align-items: center;
+  padding: 5.5% 7%; margin: 18px 0 24px;
+}
+.yugen-hero-copy { max-width: 600px; position: relative; z-index: 1; }
+.yugen-title {
+  font: clamp(58px, 7vw, 92px)/1.02 Georgia, "Times New Roman", serif;
+  letter-spacing: -4px; color: #24252B; margin: 0;
+  text-shadow: 0 1px 0 rgba(255,255,255,.45);
+}
+.yugen-title .dot { color: var(--red); }
+.yugen-subtitle {
+  font: italic clamp(20px, 2.2vw, 27px)/1.4 Georgia, serif;
+  color: #514D49; margin-top: 25px;
+}
+.yugen-note {
+  font: 14px/1.8 Arial, sans-serif; color: #45413D;
+  max-width: 390px; margin-top: 15px;
+}
+.yugen-section-title {
+  font: 10px Arial, sans-serif; letter-spacing: 2.8px;
+  color: #625F5B; margin: 14px 0 12px;
+}
+.yugen-doc-card {
+  background: rgba(248,247,244,.82); border: 1px solid var(--line);
+  border-radius: 7px; padding: 13px 15px; margin: 7px 0;
+}
+.yugen-doc-name { color: var(--ink); font-weight: 600; font-size: 14px; }
+.yugen-source {
+  border-left: 2px solid var(--red); padding: 8px 12px; margin: 8px 0;
+  background: rgba(255,255,255,.58); color: var(--ink);
+}
+.yugen-source a { color: #7E3438; }
+.yugen-pixel { width: 28px; height: 28px; image-rendering: pixelated; vertical-align: middle; }
+[data-testid="stExpander"] {
+  background: rgba(248,247,244,.65); border: 1px solid var(--line);
+  border-radius: 7px;
+}
+@media (max-width: 900px) {
+  .block-container { padding-left: 1.1rem; padding-right: 1.1rem; }
+  .yugen-hero { min-height: 390px; padding: 8% 6%; background: rgba(248,247,244,.78); }
+  .yugen-title { font-size: 62px; letter-spacing: -2.5px; }
+  .yugen-subtitle { font-size: 20px; }
+  [data-testid="stSidebar"] { min-width: 240px; }
+}
+/* Fix bottom chat area */
+[data-testid="stBottom"],
+[data-testid="stBottomBlockContainer"],
+.stChatFloatingInputContainer {
+    background: rgba(238, 236, 232, 0.96) !important;
+    background-color: rgba(238, 236, 232, 0.96) !important;
+}
+
+[data-testid="stChatInput"] {
+    background: rgba(248, 247, 244, 0.96) !important;
+    border: 1px solid rgba(41, 42, 48, 0.24) !important;
+}
+
+[data-testid="stChatInput"] textarea {
+    color: #292A30 !important;
+}
+
+/* Restore editorial heading */
+.yugen-title {
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-weight: 400 !important;
+    letter-spacing: -3px !important;
+}
+/* =========================================
+   YUGEN — COMPONENT STYLE CORRECTIONS
+   ========================================= */
+
+/* Softer, more subtle background artwork */
+[data-testid="stAppViewContainer"] {
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(238,236,232,.97) 0%,
+            rgba(238,236,232,.94) 38%,
+            rgba(238,236,232,.82) 72%,
+            rgba(238,236,232,.76) 100%
+        ),
+        url('data:image/png;base64,__HERO_IMAGE__') !important;
+    background-position: center, right center !important;
+    background-size: cover, cover !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Fix Streamlit info, warning and success boxes */
+[data-testid="stAlert"] {
+    background: rgba(248,247,244,.94) !important;
+    border: 1px solid rgba(41,42,48,.16) !important;
+    border-radius: 8px !important;
+    color: var(--ink) !important;
+}
+
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] span,
+[data-testid="stAlert"] div {
+    color: var(--ink) !important;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] {
+    background: rgba(248,247,244,.78) !important;
+    border-radius: 8px !important;
+}
+
+[data-testid="stFileUploader"] section {
+    background: rgba(248,247,244,.88) !important;
+    border: 1px dashed rgba(41,42,48,.32) !important;
+}
+
+[data-testid="stFileUploader"] button {
+    background: var(--ink) !important;
+    color: #F5F3EF !important;
+    border: 1px solid var(--ink) !important;
+}
+
+[data-testid="stFileUploader"] button:hover {
+    background: var(--red) !important;
+    border-color: var(--red) !important;
+}
+
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] span,
+[data-testid="stFileUploader"] label {
+    color: var(--ink) !important;
+}
+
+/* General content readability */
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li {
+    color: var(--ink);
+}
+
+/* Main page headings */
+/* Main interface typography */
+.stApp h1,
+.stApp h2,
+.stApp h3 {
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-weight: 600 !important;
+    color: var(--ink) !important;
+    letter-spacing: -1.5px;
+}
+
+/* Keep only the welcome heading editorial */
+.yugen-title {
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-weight: 400 !important;
+}
+
+/* Empty library and history messages */
+[data-testid="stAlert"] {
+    box-shadow: 0 4px 18px rgba(41,42,48,.035);
+}
+
+/* Keep navigation clean */
+.st-key-nav_workspace button,
+.st-key-nav_knowledge button,
+.st-key-nav_history button {
+    background: transparent !important;
+}
+/* Sidebar refinement */
+section[data-testid="stSidebar"] {
+    width: 270px !important;
+    min-width: 270px !important;
+    max-width: 270px !important;
+    background: #F3F1ED !important;
+    border-right: 1px solid rgba(41,42,48,.16);
+}
+
+section[data-testid="stSidebar"] > div {
+    width: 270px !important;
+    background: #F3F1ED !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: .7rem !important;
+}
+
+section[data-testid="stSidebar"] .yugen-brand {
+    margin-top: 8px;
+    padding-bottom: 22px;
+}
+
+section[data-testid="stSidebar"] .yugen-brand .word {
+    font-size: 34px;
+}
+
+section[data-testid="stSidebar"] .yugen-muted {
+    font-size: 12px;
+    line-height: 1.7;
+}
+/* Text inside dark chat input */
+[data-testid="stChatInput"] textarea {
+    color: #FFFFFF !important;
+    caret-color: #FFFFFF !important;
+}
+
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #D0CDD0 !important;
+    opacity: 1;
+}
+
+/* Empty library / history messages */
+[data-testid="stAlert"] {
+    background: #202C40 !important;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] span,
+[data-testid="stAlert"] div {
+    color: #FFFFFF !important;
+}
+
+/* Upload button text */
+[data-testid="stFileUploader"] button {
+    color: #FFFFFF !important;
+}
+
+/* Sidebar: keep both lines on one line */
+section[data-testid="stSidebar"] .yugen-nav-label,
+section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+    white-space: nowrap !important;
+}
+/* 1. Upload button — force all text and icons to white */
+[data-testid="stFileUploader"] button,
+[data-testid="stFileUploader"] button *,
+[data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"] {
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
+    opacity: 1 !important;
+}
+
+/* 2. Upload help tooltip — replace dark popup */
+[data-testid="stTooltipContent"],
+[data-baseweb="tooltip"] {
+    background: #F5F3EF !important;
+    color: #292A30 !important;
+    border: 1px solid rgba(41,42,48,.2) !important;
+    border-radius: 6px !important;
+}
+
+[data-testid="stTooltipContent"] *,
+[data-baseweb="tooltip"] * {
+    color: #292A30 !important;
+}
+
+/* 3. Sidebar — give the workspace description room */
+section[data-testid="stSidebar"] {
+    min-width: 310px !important;
+    width: 310px !important;
+}
+
+section[data-testid="stSidebar"] .yugen-nav-label {
+    white-space: nowrap !important;
+    font-size: 9px !important;
+    letter-spacing: 1.8px !important;
+    margin-bottom: 25px !important;
+}
+
+section[data-testid="stSidebar"] .yugen-nav-label + * {
+    white-space: nowrap !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {
+    white-space: nowrap !important;
+    font-size: 12px !important;
+}
+/* Yugen fixed navigation */
+[data-testid="stHorizontalBlock"]:has(.st-key-nav_workspace) {
+    position: fixed !important;
+    top: 0 !important;
+    left: 310px !important;
+    right: 0 !important;
+    width: auto !important;
+    z-index: 2147483647 !important;
+    background: rgba(238,236,232,.97) !important;
+    backdrop-filter: blur(12px);
+    padding: 8px 30px !important;
+    border-bottom: 1px solid var(--line);
+    pointer-events: auto !important;
+}
+
+/* Make the actual navigation buttons clickable */
+[data-testid="stHorizontalBlock"]:has(.st-key-nav_workspace) .st-key-nav_workspace,
+[data-testid="stHorizontalBlock"]:has(.st-key-nav_workspace) .st-key-nav_knowledge,
+[data-testid="stHorizontalBlock"]:has(.st-key-nav_workspace) .st-key-nav_history {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 2147483647 !important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-nav_workspace) button {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
