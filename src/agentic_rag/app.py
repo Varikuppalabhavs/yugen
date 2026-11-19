@@ -382,7 +382,8 @@ Previous conversation:\n{history_text}\n\nUser: {question}\n\nYugen:"""
                 st.error(error_message)
                 add_message(st.session_state.messages, "assistant", error_message)
                 persist_history()
-                print(f"Yugen agent error: {error!r}")
+                st.exception(error)
+                
 
 # -----------------------------------------------------------------------------
 # Knowledge — uploads, indexing, listing and deletion
